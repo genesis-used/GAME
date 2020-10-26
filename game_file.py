@@ -1,21 +1,30 @@
-import pygame
+import pygame  # importovaná knižnica pygame
+from pygame import mixer   # z knižnice pygame importuj modul mixer
+pygame.init()   # inicializácia modulu pygame
+mixer.init()   # inicializácia modulu mixer
 
-pygame.init()
+screen = pygame.display.set_mode((750, 750))   # výška + šírka obrazovky
+end = False   # pokial end != True, hra nekončí
+image = pygame.image.load(r'Images\LANDSCAPE_FOTKA.jpg')  # načítanie obrázku
+screen.blit(image, (0, 0))  # poloha obrázku
 
-screen = pygame.display.set_mode((750,750))
-
-end = False
-
-while not end:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+while not end:   # kým hra beží
+    for event in pygame.event.get():   # pre každý event v hre
+        if event.type == pygame.QUIT:  # pokial je koniec hry, program sa vypne
             end = True
 
-    pygame.draw.rect(screen, (0, 128, 50), pygame.Rect(0, 0, 220, 220))
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(200, 200, 150, 150))  # nakreslenie štvorca
+    pygame.display.flip()  # aby bola vidiet obrazovka
 
-    pygame.display.flip()
+    pygame.display.set_caption('GENESIS: ARCH OF THE SURVIVOR')  # názov hry
+    icon = pygame.image.load(r'Images\BILLIE.jpg')  # ikona hry
+    pygame.display.set_icon(icon)  # zobrazenie ikony hry
 
-    pygame.display.set_caption('GENESIS: ARCH OF THE SURVIVOR')
-    icon = pygame.image.load('Images\BILLIE.jpg')
-    pygame.display.set_icon(icon)
-
+    is_red = True
+    if event.type == pygame.KEYDOWN: # pokial je stlačený medzerník
+        if event.key == pygame.K_SPACE:
+            is_red = not is_red
+            if is_red:
+                color = (255, 0, 0)   # červena
+            else:
+                color = (0, 0, 255)   # ina farba
